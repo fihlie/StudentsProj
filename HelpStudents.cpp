@@ -185,6 +185,66 @@ long long int HelpStudents::fourthStudent() {
 }
 long long int HelpStudents::fifthStudent() {
     // IMPLEMENT ME!
+       vector<int> v;
+    v.push_back(1);
+    g->pathDistance[1]=0;
+    g->numberOfVerticesToGo[1]=0;
+    while(!v.empty()){
+        int temp=v.front();
+        v.erase(v.begin());
+        int smallest=g->adjacencyList[temp][0].second;
+        int mintemp=g->adjacencyList[temp][0].first;
+        for(int i=0;i<g->adjacencyList[temp].size();i++){
+            int temp2=g->adjacencyList[temp][i].first;
+            int weight=g->adjacencyList[temp][i].second;
+            if(smallest>weight){
+                smallest=weight;
+                mintemp=temp2;
+            }
+        }
+        for(int i=0;i<g->adjacencyList[temp].size();i++){
+            int temp2=g->adjacencyList[temp][i].first;
+            int weight=g->adjacencyList[temp][i].second;
+            if(g->numberOfVerticesToGo[temp]==0){
+                if(weight==smallest){
+                    if(g->pathDistance[temp2]>g->pathDistance[temp]+weight||g->pathDistance[temp2]==-1){
+                        g->numberOfVerticesToGo[temp2]=g->numberOfVerticesToGo[temp]+1;
+                        g->pathDistance[temp2]=g->pathDistance[temp]+weight;
+                        v.push_back(temp2);
+                    }
+                }
+                else if(weight<2*smallest){
+                    if(g->pathDistance[temp2]>g->pathDistance[temp]+weight||g->pathDistance[temp2]==-1){
+                        g->numberOfVerticesToGo[temp2]=g->numberOfVerticesToGo[temp]+1;
+                        g->pathDistance[temp2]=g->pathDistance[temp]+weight;
+                        v.push_back(temp2);
+                    }
+                }
+                else{
+                    if(g->pathDistance[temp2]>g->pathDistance[temp]+weight||g->pathDistance[temp2]==-1){
+                        g->numberOfVerticesToGo[temp2]=0;
+                        g->pathDistance[temp2]=g->pathDistance[temp]+2*smallest;
+                        v.push_back(temp2);
+                    }
+                }
+            }
+            else if(g->numberOfVerticesToGo[temp]==1){
+                if(g->pathDistance[temp2]>g->pathDistance[temp]+weight||g->pathDistance[temp2]==-1){
+                    g->numberOfVerticesToGo[temp2]=g->numberOfVerticesToGo[temp]+1;
+                    g->pathDistance[temp2]=g->pathDistance[temp]+weight;
+                    v.push_back(temp2);
+                }
+            }
+            else{
+                if(g->pathDistance[temp2]>g->pathDistance[temp]||g->pathDistance[temp2]==-1){
+                    g->pathDistance[temp2]=g->pathDistance[temp];
+                    g->numberOfVerticesToGo[temp2]=0;
+                    v.push_back(temp2);
+                }
+            }
+        }
+    }
+    return g->pathDistance[final];
 }
 
 
