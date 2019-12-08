@@ -126,7 +126,7 @@ long long int HelpStudents::secondStudent() {
     }
     return largest;
 }
-/*long long int HelpStudents::thirdStudent() {
+long long int HelpStudents::thirdStudent() {
     // IMPLEMENT ME!
     vector<int> v;
     v.push_back(1);
@@ -145,7 +145,7 @@ long long int HelpStudents::secondStudent() {
         }
     }
     return g->numberOfVerticesToGo[final];
-}*/
+}
 long long int HelpStudents::fourthStudent() {
     // IMPLEMENT ME!
     vector<int> v;
